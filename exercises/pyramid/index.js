@@ -13,7 +13,18 @@
 //       '  #  '
 //       ' ### '
 //       '#####'
+//   pyramid(4)
+//       '   #   '
+//       '  ###  '
+//       ' ##### '
+//       '#######'
 
-function pyramid(n) {}
+function pyramid(n) {
+  for(let i = 0, y = 1; i < n; i++, y += 2) {
+    const spaces = ' '.repeat(n - i -1);
+    const sharps = '#'.repeat(y);
+    console.log(spaces + sharps + spaces);
+  }
+}
 
 module.exports = pyramid;
