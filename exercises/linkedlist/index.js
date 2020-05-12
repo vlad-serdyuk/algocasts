@@ -16,29 +16,20 @@ class LinkedList {
   }
 
   insertFirst(val) {
-    if (!this.head) {
-      const node = new Node(val);
-      this.head = node;
-      this.tail = node;
-      return;
-    }
+    this.head = new Node(val, this.head);
 
-    const prevHead = this.head;
-    const newNode = new Node(val, prevHead);
-    this.head = newNode;
+    if (!this.tail) {
+      this.tail = this.head;
+    }
   }
 
   size() {
-    if (!this.head) {
-      return 0;
-    }
-
     let count = 0;
-    let current = this.head;
+    let node = this.head;
 
-    while (current) {
-      count += 1;
-      current = current.next;
+    while (node) {
+      count++;
+      node = node.next;
     }
 
     return count;
@@ -109,6 +100,40 @@ class LinkedList {
     }
 
     return null;
+  }
+
+  removeAt(index) {
+    if (!this.head) {
+      return;
+    }
+
+    if (index === 0) {
+      this.head = this.head.next;
+      return;
+    }
+
+    const prev = this.getAt(index - 1);
+
+    if (!prev || !prev.next) {
+      return;
+    }
+
+    prev.next = prev.next.next;
+  }
+
+  insertAt(data, index) {
+    if (index === 0) {
+      this.head = new Node(data, this.head);
+      return;
+    }
+
+    const prev = this.getAt(index - 1) || this.getLast();;
+    const node = new Node(data, prev.next);
+    prev.next = node;
+
+    if (!node.next) {
+      this.tail = node;
+    }
   }
 }
 
